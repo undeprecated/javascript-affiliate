@@ -1,0 +1,30 @@
+{
+  "name": "javascript-affiliate",
+  "version": "1.0.0",
+  "description": "A simple affiliate link inserter using JavaScript.",
+  "main": "js-affiliate.js",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  },
+  "scripts": {
+    "start": "./node_modules/http-server/bin/http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/undeprecated/javascript-affiliate.git"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "affiliate",
+    "replacement"
+  ],
+  "author": "Nick Curry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/undeprecated/javascript-affiliate/issues"
+  },
+  "homepage": "https://github.com/undeprecated/javascript-affiliate#readme"
+}
