@@ -34,9 +34,12 @@ Include the library on your website. This will make a global variable called `Js
 
 The pages you want this code to execute on.
 
-    url: '*'
+    url: '*' // all pages
+    url: 'htts://www.example.com/product' // only pages that begin with this string
+    url: 'product' // any pages with the word product in it
+    url: /product/i // any pages with the word product in it
 
-This can be a regular expression, or '\*' for all pages.
+This can be a URL, regular expression, or '\*' for all pages. If it's a URL, we check i
 
 #### selector
 
@@ -84,10 +87,39 @@ Max number of times `findText` will be replaced with `linkTo` or `a`.
 
     occurrences: 1 // default
 
+Use `-1` for all occurrences.
+
 ## Examples
 
-## Author
+On `/products` pages, select paragraph tags and replace the first occurrence of `Amazon` with a link to `https://www.amazon.com`.
 
-### Nick Curry
+```javasscript
+JsAffiliate([
+  {
+    url: "/products",
+    selector: "body p",
+    findText: "Amazon",
+    linkTo: "https://www.amazon.com",
+    position: "first",
+    occurrences: 1
+  }
+]);
+```
+
+Replace every occurrence of `Amazon` inside a span tag inside a p tag and replace it with a link to `https://www.amazon.com`.
+
+```javasscript
+JsAffiliate([
+  {
+    url: "*",
+    selector: "body p span",
+    findText: "Amazon",
+    linkTo: "https://www.amazon.com",
+    occurrences: -1
+  }
+]);
+```
+
+## Author
 
 [https://www.undeprecated.com](https://www.undeprecated.com)
