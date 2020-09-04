@@ -1,5 +1,6 @@
 /**
  *  js-affiliate.js v0.0.1
+ *  https://github.com/undeprecated/javascript-affiliate
  *
  *  https://www.undeprecated.com/
  *  (c) 2020 Nick Curry, Undeprecated, LLC
@@ -12,7 +13,7 @@ var JsAffiliate = function(configs) {
    * @return {String} URL
    */
   function getCurrentPage() {
-    return window.location.href;
+    return window.location.pathname;
   }
 
   /**
@@ -40,13 +41,14 @@ var JsAffiliate = function(configs) {
     if (match_this === "*") {
       return true;
     }
-    if (to_that instanceof RegExp) {
-      return to_that.test(match_this);
+    if (match_this instanceof RegExp) {
+      return match_this.test(to_that);
     }
-    if (typeof to_that === "string") {
+    if (typeof match_this === "string") {
       var re = RegExp(to_that, "i");
-      return re.test(match_this);
+      return re.test(to_that) || to_that.startsWith(match_this);
     }
+    return false;
   }
 
   /**
@@ -82,7 +84,7 @@ var JsAffiliate = function(configs) {
           var start = position === "start" ? nodes.length - i - 1 : i;
           var node = nodes[start];
           var a_tag = a || '<a href="' + linkTo + '">' + findText + "</a>";
-          var swapped = textToLink(node, findText, a);
+          var swapped = textToLink(node, findText, a_tag);
 
           if (swapped && occurrences) {
             occurrences_applied = occurrences_applied + 1;
@@ -100,11 +102,11 @@ var JsAffiliate = function(configs) {
    *
    * @param  {HTML Element} reference     Element to search in
    * @param  {string} text                Text to search in Element
-   * @param  {string} link                Text to swap in
-   * @return {boolean}           True if found, false if not
+   * @param  {string} a_tag               <a> tag to swap in
+   * @return {boolean}                    true if found, false if not
    */
-  function textToLink(reference, text, link) {
-    var replacement = reference.innerText.replace(text, link);
+  function textToLink(reference, text, a_tag) {
+    var replacement = reference.innerText.replace(text, a_tag);
 
     reference.innerHTML = replacement;
 
